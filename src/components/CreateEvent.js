@@ -2,19 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 
-const CreateEvent = ({isSending, setIsSending, setEventName, setEventDescription, eventName, eventDescription}) => {
+const CreateEvent = ({isOpen, setIsOpen, startDate, setStartDate, endDate, setEndDate, getToken, sendingCount, setSendingCount, setEventName, setEventDescription, eventName, eventDescription}) => {
 
   const [eventNameInputValue, setEventNameInputValue] = useState('');
   const [eventDescriptionInputValue, setEventDescriptionInputValue] = useState('');
+  const [startDateInputValue, setStartDateInputValue] = useState('');
+  const [endDateInputValue, setEndDateInputValue] = useState('');
 
   useEffect(() => {
     async function postEvent() {
-      let response_token = await axios.post("https://api.dev.eventdrive.com/public/v1/token",
-      {
-        "client_id": "25",
-        "client_secret":"FgR7rnRi9AWe3Y0sgrQhLLJKEA0PQQJxdoyKqSxH"
-      });
-      let token = await response_token.data.access_token;
+      const token = await getToken();
       let response = await axios.post(
         "https://api.dev.eventdrive.com/public/v1/events",
         {
@@ -34,8 +31,8 @@ const CreateEvent = ({isSending, setIsSending, setEventName, setEventDescription
           "visibility": "public",
           "status": "draft",
           "reference_id": null,
-          "start_date": "2021-12-08 00:00:00",
-          "end_date": "2021-12-23 00:00:00",
+          "start_date": startDate,
+          "end_date": endDate,
           "timezone": "UTC",
           "available_locales": [
             "en"
@@ -69,29 +66,44 @@ const CreateEvent = ({isSending, setIsSending, setEventName, setEventDescription
           }
         }
       );
+      setSendingCount(sendingCount + 1);
     };
-    if (eventName != "" && eventDescription != ""){
+    if (eventName !== "" && eventDescription !== ""){
       postEvent();
       setEventDescriptionInputValue("");
       setEventNameInputValue("");
     }
   }, [eventName, eventDescription]);
 
+
+  if (!isOpen) return;
   return(
-    <div>
-      <form action="" onSubmit={(event) => {
-        event.preventDefault();
-        setEventName(eventNameInputValue);
-        setEventDescription(eventDescriptionInputValue);
-      }}>
-        <div>
-          <input placeholder="nom de l'événement..." value={eventNameInputValue} onChange={(event) => setEventNameInputValue(event.target.value)}/>
-        </div>
-        <div>
-          <input placeholder="description de l'événement..." value={eventDescriptionInputValue} onChange={(event) => setEventDescriptionInputValue(event.target.value)}/>
-        </div>
-        <button type="submit">Enregistrer l'événement !</button>
-      </form>
+    <div className="overlay">
+      <div className="modal">
+        <button className="delete-button" onClick={() => {setIsOpen(false);}}>X</button>
+        <form action="" onSubmit={(event) => {
+          event.preventDefault();
+          setEventName(eventNameInputValue);
+          setEventDescription(eventDescriptionInputValue);
+          setStartDate(startDateInputValue.split("T")[0] + " " + startDateInputValue.split("T")[1] + ":00");
+          setEndDate(endDateInputValue.split("T")[0] + " " + endDateInputValue.split("T")[1] + ":00");
+          setIsOpen(false);
+        }}>
+            <label for="name"><span>Nom </span>
+              <input className="event-name" name="name" placeholder="nom de l'événement..." value={eventNameInputValue} onChange={(event) => setEventNameInputValue(event.target.value)}/>
+            </label>
+            <label for="start"><span>Date de début </span>
+            <input className="event-date" name="start" type="datetime-local" value={startDateInputValue} onChange={(event) => setStartDateInputValue(event.target.value)}/>
+            </label>
+            <label for="end"><span>Date de fin </span>
+              <input className="event-date" name="end" type="datetime-local" value={endDateInputValue} onChange={(event) => setEndDateInputValue(event.target.value)}/>
+            </label>
+            <label for="description"><span>Description </span>
+              <textarea rows="5" name="description" value={eventDescriptionInputValue} onChange={(event) => setEventDescriptionInputValue(event.target.value)}/>
+            </label>
+          <button className="create-button" type="submit">Créer</button>
+        </form>
+      </div>
     </div>
   )
 };
