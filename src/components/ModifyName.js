@@ -21,10 +21,11 @@ const ModifyName = ({getToken, setSendingCount, sendingCount, id, eventJson}) =>
   };
 
   return (
-    <div className="modify-name-box">
+    <div>
       <form action="" onSubmit={(event) => {
         event.preventDefault();
         modifyEventName(id, eventJson);
+        setNewEventName("");
       }}>
         <input placeholder="nouveau nom..." value={newEventName} onChange={(event) => {setNewEventName(event.target.value);}}/>
         <button className="modify-button" type="submit">Modifier</button>

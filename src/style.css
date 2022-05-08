@@ -3,14 +3,24 @@ body {
 }
 
 body h1 {
-  font-size: 30px;
+  font-size: 20px;
+  text-align: center;
 }
 
-.main-div {
-  display: flex;
-  flex-direction: column;
+button {
+  border: 1px solid black;
+  cursor: pointer;
 }
 
+input, textarea {
+  padding: 5px;
+  border-radius: 0px;
+  border: 1px solid black;
+}
+
+input:focus, textarea:focus {
+  outline: None;
+}
 
 .single-event {
   margin  : 8px;
@@ -18,50 +28,70 @@ body h1 {
   border-radius: 2px;
   border: 1px solid black;
   background-color:blanchedalmond;
+  font-size: 0.8em;
 }
 
-.event-items {
+.single-event:hover {
+  box-shadow: 1px 1px 10px rgb(196, 188, 188);
+}
+
+.single-event .event-name{
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.event-description {
+  font-style: italic;
+}
+
+.modify-delete-event-box input {
+  height: 10px;
+}
+
+.modify-delete-event-box {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.add-button, .create-button {
-  border: 1px solid black;
+.modify-delete-event-box input, button {
+  margin-right: 5px;
+}
+
+.modify-button  {
+  background-color:rgb(237, 197, 137);
+}
+
+.modify-button:hover {
+  background-color:rgb(214, 166, 94);
+}
+
+.delete-event-button {
+  background-color:rgb(250, 114, 126);
+}
+
+.delete-event-button:hover {
+  background-color:rgb(246, 77, 91);
+}
+
+
+.add-button {
   border-radius: 10px;
   padding: 10px;
   background-color: rgb(131, 27, 94);
   color: white;
 }
 
-.create-button {
-  display: flex;
-  justify-content: center;
-}
-
-.add-button:hover, .create-button:hover {
+.add-button:hover {
   background-color: rgb(102, 20, 73);
-  color: white;
-  cursor: pointer;
 }
 
-.delete-button {
+.close-button {
   background-color: rgb(244, 80, 80);
-  width: fit-content;
-  height: fit-content;
-  border: 1px solid black;
-  cursor: pointer;
-}
-
-.delete-button:hover {
-  box-shadow: 1px 1px 1px rgb(196, 188, 188);
-}
-
-form .delete-button {
   float: left;
 }
 
-.single-event .delete-button {
-  float: right;
+.close-button:hover {
+  box-shadow: 1px 1px 1px rgb(196, 188, 188);
 }
 
 .overlay {
@@ -73,7 +103,7 @@ form .delete-button {
   background-color: rgb(128, 128, 128, 0.33);
 }
 
-.modal{
+.modal {
   padding: 5px;
   position: absolute;
   top: 50%;
@@ -88,53 +118,30 @@ form .delete-button {
 }
 
 form label {
-  display:flex;
+  display: flex;
   flex-direction: column;
 	margin-bottom: 20px;
-}
-
-input, textarea {
-  padding: 5px;
-  border-radius: 0%;
-  border: 1px solid black;
-}
-
-input:focus, textarea:focus {
-  outline: None;
 }
 
 form .event-name {
   width: 300px;
 }
 
-.event-items{
-  font-size: 0.8em;
-}
-
-.event-items .event-description {
-  font-style: italic;
-}
-
-.event-items .event-name{
-  font: bold 1.2em "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}
-
 .event-date {
   width: fit-content;
 }
 
-.modify-name-box input {
-  height: 10px;
+.submit-button-box {
+  display: flex;
+  justify-content: center;
 }
 
-.modify-button {
-  background-color:rgb(237, 197, 137);
-  border: 1px solid black;
-  margin-left: 3px;
+.submit-form-create-event-button {
+  padding: 5px;
+  width: 60px;
+  background-color: rgb(250, 238, 197);
 }
 
-.modify-button:hover {
-  background-color:rgb(214, 166, 94);
-  border: 1px solid black;
-  margin-left: 3px;
+.submit-form-create-event-button:hover{
+  background-color: rgb(253, 227, 143);
 }

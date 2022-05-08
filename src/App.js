@@ -25,16 +25,12 @@ const App = () => {
     };
 
     return (
-      <div className="back">
+      <div>
         <h1>Mes événements</h1>
         <div className="main-div">
-          <div className="event-list">
-            <GetEventList getToken={getToken} sendingCount={sendingCount} setSendingCount={setSendingCount} eventList={eventList} setEventList={setEventList}/>
-          </div>
-          <div className="create-event">
-            <button className="add-button" onClick={() => {setIsOpen(true)}}>Ajouter un événement</button>
-            <CreateEvent isOpen={isOpen} setIsOpen={setIsOpen} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} getToken={getToken} sendingCount={sendingCount} setSendingCount={setSendingCount} setEventName={setEventName} setEventDescription={setEventDescription} eventName={eventName} eventDescription={eventDescription}/>
-          </div>
+          <GetEventList getToken={getToken} sendingCount={sendingCount} setSendingCount={setSendingCount} eventList={eventList} setEventList={setEventList}/>
+          <button className="add-button" onClick={() => {setIsOpen(true)}}>Ajouter un événement</button>
+          <CreateEvent isOpen={isOpen} setIsOpen={setIsOpen} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} getToken={getToken} sendingCount={sendingCount} setSendingCount={setSendingCount} setEventName={setEventName} setEventDescription={setEventDescription} eventName={eventName} eventDescription={eventDescription}/>
         </div>
       </div>
     );

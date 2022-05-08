@@ -72,6 +72,8 @@ const CreateEvent = ({isOpen, setIsOpen, startDate, setStartDate, endDate, setEn
       postEvent();
       setEventDescriptionInputValue("");
       setEventNameInputValue("");
+      setStartDateInputValue("");
+      setEndDateInputValue("");
     }
   }, [eventName, eventDescription]);
 
@@ -80,7 +82,7 @@ const CreateEvent = ({isOpen, setIsOpen, startDate, setStartDate, endDate, setEn
   return(
     <div className="overlay">
       <div className="modal">
-        <button className="delete-button" onClick={() => {setIsOpen(false);}}>X</button>
+        <button className="close-button" onClick={() => {setIsOpen(false);}}>X</button>
         <form action="" onSubmit={(event) => {
           event.preventDefault();
           setEventName(eventNameInputValue);
@@ -89,19 +91,23 @@ const CreateEvent = ({isOpen, setIsOpen, startDate, setStartDate, endDate, setEn
           setEndDate(endDateInputValue.split("T")[0] + " " + endDateInputValue.split("T")[1] + ":00");
           setIsOpen(false);
         }}>
-            <label for="name"><span>Nom </span>
-              <input className="event-name" name="name" placeholder="nom de l'événement..." value={eventNameInputValue} onChange={(event) => setEventNameInputValue(event.target.value)}/>
+          <div>
+            <label>Nom
+              <input className="event-name" placeholder="nom de l'événement..." value={eventNameInputValue} onChange={(event) => setEventNameInputValue(event.target.value)}/>
             </label>
-            <label for="start"><span>Date de début </span>
-            <input className="event-date" name="start" type="datetime-local" value={startDateInputValue} onChange={(event) => setStartDateInputValue(event.target.value)}/>
+            <label>Date de début
+            <input className="event-date" type="datetime-local" value={startDateInputValue} onChange={(event) => setStartDateInputValue(event.target.value)}/>
             </label>
-            <label for="end"><span>Date de fin </span>
-              <input className="event-date" name="end" type="datetime-local" value={endDateInputValue} onChange={(event) => setEndDateInputValue(event.target.value)}/>
+            <label>Date de fin
+              <input className="event-date" type="datetime-local" value={endDateInputValue} onChange={(event) => setEndDateInputValue(event.target.value)}/>
             </label>
-            <label for="description"><span>Description </span>
-              <textarea rows="5" name="description" value={eventDescriptionInputValue} onChange={(event) => setEventDescriptionInputValue(event.target.value)}/>
+            <label>Description
+              <textarea rows="5" value={eventDescriptionInputValue} onChange={(event) => setEventDescriptionInputValue(event.target.value)}/>
             </label>
-          <button className="create-button" type="submit">Créer</button>
+          </div>
+          <div className="submit-button-box">
+            <button className="submit-form-create-event-button" type="submit">Créer</button>
+          </div>
         </form>
       </div>
     </div>

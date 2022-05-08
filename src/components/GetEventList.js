@@ -29,18 +29,17 @@ const GetEventList = ({sendingCount, setSendingCount, getToken, setEventList, ev
   }, [sendingCount]);
 
   return(
-    <div className="all-events">
+    <div>
       {eventList.map((element) =>
         <div key={element.id} className="single-event">
-          <div className="event-items">
+          <div>
             <div className="event-name">{element.name.en}</div>
             <div className="event-description">{element.description.en}</div>
             <div>Du {element.start_date} au {element.end_date}</div>
-            <div className="modify-delete-event">
+            <div className="modify-delete-event-box">
               <ModifyName id={element.id} eventJson={element} getToken={getToken} setSendingCount={setSendingCount} sendingCount={sendingCount}></ModifyName>
               <button className="delete-event-button" onClick={(event) => {deleteEvent(element.id);}}>Supprimer l'événement</button>
             </div>
-
           </div>
         </div>
       )}
